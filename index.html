@@ -3,219 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>B&F — UK Car Types Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>B&F — UK Car Segments</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #F5F4F0;
-    --surface: #FFFFFF;
-    --border: #E2E0D8;
-    --text: #1A1917;
-    --muted: #7A7870;
-    --accent: #1A1917;
-    --hatch-bg: #EBF3FB; --hatch-accent: #1A5FA8; --hatch-pill: #D0E6F7;
-    --saloon-bg: #EAF4E2; --saloon-accent: #2D7A1F; --saloon-pill: #C8E8BF;
-    --estate-bg: #FDF0DC; --estate-accent: #9A6010; --estate-pill: #F7DCAA;
-    --suv-bg: #FAEDE8; --suv-accent: #B5401A; --suv-pill: #F5C9B8;
-    --mpv-bg: #EEEDFB; --mpv-accent: #4A3DB5; --mpv-pill: #CEC8F3;
-    --coupe-bg: #FBEBF1; --coupe-accent: #A3284F; --coupe-pill: #F2BECE;
-  }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#F4F3EF;color:#1A1917;min-height:100vh;font-size:15px;}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+header{
+  background:#1A1917;color:#fff;
+  padding:1.25rem 1.75rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+}
+.brand{font-size:17px;font-weight:600;letter-spacing:-.3px;}
+.brand-sub{font-size:12px;opacity:.4;font-family:'DM Mono',monospace;margin-top:2px;}
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    font-size: 15px;
-    line-height: 1.6;
-  }
+.sticky-bar{
+  position:sticky;top:0;z-index:50;
+  background:#fff;border-bottom:1px solid #E2E0D8;
+  padding:.85rem 1.75rem;
+  display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+}
+#searchInput{
+  flex:1;min-width:180px;
+  padding:8px 13px;border:1px solid #D8D6CE;border-radius:8px;
+  font-size:14px;font-family:'DM Sans',sans-serif;
+  background:#F4F3EF;color:#1A1917;outline:none;
+  transition:border-color .15s;
+}
+#searchInput:focus{border-color:#888;}
+#searchInput::placeholder{color:#A09E96;}
 
-  header {
-    background: var(--text);
-    color: #fff;
-    padding: 1.5rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
+.filters{display:flex;gap:6px;flex-wrap:wrap;}
+.tf{
+  padding:5px 14px;font-size:13px;font-family:'DM Sans',sans-serif;
+  border:1px solid #D8D6CE;border-radius:20px;
+  background:transparent;color:#7A7870;cursor:pointer;
+  transition:all .15s;white-space:nowrap;
+}
+.tf:hover{background:#F4F3EF;color:#1A1917;}
+.tf.active{background:#1A1917;color:#fff;border-color:#1A1917;}
 
-  .brand { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
-  .brand span { opacity: 0.45; font-weight: 300; }
-  .header-sub { font-size: 13px; opacity: 0.5; font-family: 'DM Mono', monospace; }
+main{padding:1.25rem 1.75rem 3rem;max-width:980px;margin:0 auto;}
+.count-bar{font-size:12px;color:#A09E96;font-family:'DM Mono',monospace;margin-bottom:1.25rem;}
 
-  .search-bar {
-    padding: 1rem 2rem;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
+.card{
+  background:#fff;border:1px solid #E2E0D8;border-radius:14px;
+  overflow:hidden;margin-bottom:1rem;
+}
+.card-head{
+  display:flex;align-items:stretch;gap:0;cursor:pointer;
+  user-select:none;transition:background .15s;
+}
+.card-head:hover{background:#FAFAF8;}
 
-  #searchInput {
-    flex: 1;
-    min-width: 200px;
-    padding: 9px 14px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 14px;
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    outline: none;
-    transition: border-color .15s;
-  }
-  #searchInput:focus { border-color: #888; }
-  #searchInput::placeholder { color: var(--muted); }
+.seg-badge{
+  width:76px;flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:1.1rem .5rem;
+  border-right:1px solid #E2E0D8;
+}
+.seg-letter{font-size:38px;font-weight:600;line-height:1;font-style:italic;}
+.seg-name{font-size:10px;font-family:'DM Mono',monospace;text-align:center;margin-top:5px;line-height:1.3;text-transform:uppercase;letter-spacing:.4px;}
 
-  .filters { display: flex; gap: 6px; flex-wrap: wrap; }
-  .tf {
-    padding: 6px 14px;
-    font-size: 13px;
-    font-family: 'DM Sans', sans-serif;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    background: transparent;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all .15s;
-    white-space: nowrap;
-  }
-  .tf:hover { background: var(--bg); color: var(--text); }
-  .tf.active { background: var(--text); color: #fff; border-color: var(--text); }
+.head-body{flex:1;padding:.9rem 1.1rem;}
+.head-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:4px;}
+.seg-title{font-size:15px;font-weight:600;}
+.seg-count{font-size:12px;font-family:'DM Mono',monospace;color:#A09E96;margin-left:auto;}
+.seg-desc{font-size:13px;color:#7A7870;line-height:1.55;}
 
-  main { padding: 1.5rem 2rem 3rem; max-width: 1100px; margin: 0 auto; }
+.chevron{padding:0 1rem;display:flex;align-items:center;font-size:18px;color:#C0BEB6;transition:transform .2s;flex-shrink:0;}
+.card.open .chevron{transform:rotate(180deg);}
 
-  .count-bar {
-    font-size: 13px;
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-    margin-bottom: 1.5rem;
-  }
+.card-body{display:none;border-top:1px solid #E2E0D8;padding:1.1rem 1.25rem 1.35rem;}
+.card.open .card-body{display:block;}
 
-  .section {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    margin-bottom: 1.25rem;
-  }
+.why-block{
+  background:#F4F3EF;border-radius:9px;
+  padding:.85rem 1rem;margin-bottom:1.1rem;
+  font-size:13px;color:#4A4844;line-height:1.65;
+}
+.why-block strong{color:#1A1917;font-weight:500;}
 
-  .section-head {
-    padding: 1.1rem 1.4rem;
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    cursor: pointer;
-    user-select: none;
-    transition: background .15s;
-  }
-  .section-head:hover { background: var(--bg); }
+.facts-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
+  gap:7px;margin-bottom:1.1rem;
+}
+.fact{border:1px solid #E2E0D8;border-radius:8px;padding:9px 11px;background:#fff;}
+.fact-label{font-size:11px;font-family:'DM Mono',monospace;color:#A09E96;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;}
+.fact-value{font-size:13px;font-weight:500;color:#1A1917;}
 
-  .type-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
+.models-label{font-size:11px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.4px;color:#A09E96;margin-bottom:8px;}
+.pills{display:flex;flex-wrap:wrap;gap:5px;}
+.pill{padding:4px 11px;border-radius:20px;font-size:13px;border:1px solid transparent;cursor:default;transition:all .12s;}
+.pill.match{font-weight:600;}
 
-  .head-text { flex: 1; }
-  .head-top { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-  .type-name { font-size: 16px; font-weight: 600; }
-  .type-tagline { font-size: 13px; color: var(--muted); }
-  .type-count { font-size: 12px; font-family: 'DM Mono', monospace; color: var(--muted); margin-left: auto; }
-  .type-why { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+.empty{text-align:center;padding:3rem 1rem;color:#A09E96;font-size:14px;}
 
-  .chevron {
-    font-size: 18px;
-    color: var(--muted);
-    margin-top: 10px;
-    transition: transform .2s;
-    flex-shrink: 0;
-  }
-  .section.open .chevron { transform: rotate(180deg); }
-
-  .section-body {
-    display: none;
-    border-top: 1px solid var(--border);
-    padding: 1.2rem 1.4rem 1.4rem;
-  }
-  .section.open .section-body { display: block; }
-
-  .key-facts {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 8px;
-    margin-bottom: 1.2rem;
-  }
-
-  .fact {
-    border-radius: 9px;
-    padding: 10px 12px;
-    border: 1px solid var(--border);
-    background: var(--bg);
-  }
-  .fact-label { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 3px; }
-  .fact-value { font-size: 13px; font-weight: 500; color: var(--text); }
-
-  .cars-label {
-    font-size: 11px;
-    font-family: 'DM Mono', monospace;
-    text-transform: uppercase;
-    letter-spacing: .5px;
-    color: var(--muted);
-    margin-bottom: 10px;
-  }
-
-  .pills { display: flex; flex-wrap: wrap; gap: 6px; }
-  .pill {
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 13px;
-    border: 1px solid transparent;
-    transition: all .12s;
-    cursor: default;
-  }
-  .pill.match { font-weight: 600; }
-
-  .empty {
-    text-align: center;
-    padding: 3rem 1rem;
-    color: var(--muted);
-    font-size: 14px;
-  }
-
-  @media (max-width: 600px) {
-    header, main { padding-left: 1rem; padding-right: 1rem; }
-    .search-bar { padding: 0.75rem 1rem; }
-    .key-facts { grid-template-columns: 1fr 1fr; }
-  }
+@media(max-width:560px){
+  header,.sticky-bar,main{padding-left:1rem;padding-right:1rem;}
+  .seg-badge{width:60px;}
+  .seg-letter{font-size:30px;}
+  .facts-grid{grid-template-columns:1fr 1fr;}
+}
 </style>
 </head>
 <body>
 
 <header>
   <div>
-    <div class="brand">B<span>&</span>F <span style="opacity:.3">|</span> UK Car Types</div>
-    <div class="header-sub">BD Training Reference · Internal Use Only</div>
+    <div class="brand">B&amp;F &mdash; UK Car Segments</div>
+    <div class="brand-sub">BD Training Reference &middot; Internal Use Only</div>
   </div>
 </header>
 
-<div class="search-bar">
-  <input type="text" id="searchInput" placeholder="Search any car model e.g. Golf, Qashqai...">
+<div class="sticky-bar">
+  <input type="text" id="searchInput" placeholder="Search any model e.g. Golf, Qashqai, Fiesta...">
   <div class="filters" id="filters"></div>
 </div>
 
@@ -225,271 +127,256 @@
 </main>
 
 <script>
-const TYPES = [
+const SEGS = [
   {
-    id: "hatchback",
-    label: "Hatchback",
-    icon: "🚗",
-    tagline: "City & everyday driving",
-    bg: "var(--hatch-bg)",
-    accent: "var(--hatch-accent)",
-    pill: "var(--hatch-pill)",
-    why: "The most popular body type in the UK. Compact, easy to park, affordable to run. Typically 3 or 5 doors with a rear hatch that opens to a shared boot and cabin space. Ideal for commuters, young drivers, couples, and small families.",
-    facts: [
-      { label: "Typical use", value: "Commuting, city errands" },
-      { label: "Boot space", value: "270–380 litres" },
-      { label: "Ins. group range", value: "Group 1–25" },
-      { label: "Engine size", value: "1.0–2.0L typical" },
-      { label: "Fuel economy", value: "40–60+ MPG" },
-      { label: "Ideal for", value: "Singles, couples, small families" }
+    id:"A", letter:"A", name:"Mini Cars", title:"Mini / City Cars",
+    badge_bg:"#EBF3FB", badge_color:"#1A5FA8", pill_bg:"#D5E9F8", pill_color:"#0E4A8A",
+    desc:"The smallest cars on sale. Designed for tight city streets — cheap to run, easy to park, low insurance.",
+    why:`<strong>Segment A</strong> cars are the smallest available — typically under 3.7m long. Built purely for urban life: tiny turning circles, easy parking, and very low running costs. Insurance is usually group 1–10. Customers here tend to be first-time drivers, city dwellers, or people who rarely leave town. Don't confuse size with price — a MINI or Fiat 500 Abarth can be a premium purchase despite the small footprint.`,
+    facts:[
+      {label:"Typical length",value:"Under 3.7m"},
+      {label:"Insurance group",value:"Group 1–10"},
+      {label:"Boot space",value:"150–250 litres"},
+      {label:"Engine size",value:"1.0–1.2L"},
+      {label:"Fuel economy",value:"45–65+ MPG"},
+      {label:"Road tax",value:"Often £0–£165/yr"},
+      {label:"Seats",value:"4–5 (tight rear)"},
+      {label:"Ideal customer",value:"First-timers, city drivers"}
     ],
-    cars: [
-      "Ford Fiesta","Volkswagen Golf","Vauxhall Corsa","Nissan Micra","Ford Focus","SEAT Ibiza",
-      "Skoda Fabia","Renault Clio","Peugeot 208","Toyota Yaris","Honda Civic","BMW 1 Series",
-      "Audi A3","Mercedes A-Class","Hyundai i20","Kia Rio","Mazda 2","MINI Hatch",
-      "Volkswagen Polo","Vauxhall Astra","Suzuki Swift","SEAT Leon","Skoda Octavia",
-      "Fiat 500","Hyundai i30","Kia Ceed","Toyota Corolla","Citroen C3","Peugeot 308",
-      "Renault Megane","Volkswagen ID.3","BMW 2 Series","Audi A1"
+    cars:[
+      "Fiat 500","Fiat Panda","Volkswagen Up","SEAT Mii","Skoda Citigo",
+      "Hyundai i10","Kia Picanto","Toyota Aygo","Peugeot 108","Citroen C1",
+      "Renault Twingo","Smart ForTwo","Suzuki Celerio","Mitsubishi Mirage",
+      "Honda E","Vauxhall Viva","Ford Ka+","Dacia Sandero","Nissan Micra (older)"
     ]
   },
   {
-    id: "saloon",
-    label: "Saloon",
-    icon: "🚙",
-    tagline: "Professional & long-distance comfort",
-    bg: "var(--saloon-bg)",
-    accent: "var(--saloon-accent)",
-    pill: "var(--saloon-pill)",
-    why: "Three-box design — separate engine, cabin, and boot compartments. Quieter and more refined than a hatchback, making them popular with professionals and motorway commuters. Boot is locked off from the cabin, giving a more premium, secure feel.",
-    facts: [
-      { label: "Typical use", value: "Motorway commuting, business" },
-      { label: "Boot space", value: "400–550 litres" },
-      { label: "Ins. group range", value: "Group 15–45" },
-      { label: "Engine size", value: "1.5–3.0L typical" },
-      { label: "Fuel economy", value: "35–55 MPG" },
-      { label: "Ideal for", value: "Professionals, couples, execs" }
+    id:"B", letter:"B", name:"Small Cars", title:"Small / Supermini Cars",
+    badge_bg:"#EAF4E2", badge_color:"#2D7A1F", pill_bg:"#C5E8B8", pill_color:"#1C5C12",
+    desc:"The UK's best-selling segment. A step up from mini cars — proper rear seats, usable boot, wide choice of trims.",
+    why:`<strong>Segment B</strong> — superminis — are the most popular cars sold in the UK. They sit between tiny city cars and full-size family hatchbacks, typically 3.8–4.2m long. Proper rear legroom, a usable boot, and a wide range of engine and trim options. This is where you'll spend a lot of your time as a BD agent. Customers range from first-time buyers to retirees downsizing. The Ford Fiesta, Vauxhall Corsa, and VW Polo are the bread-and-butter of this segment.`,
+    facts:[
+      {label:"Typical length",value:"3.8m – 4.2m"},
+      {label:"Insurance group",value:"Group 3–20"},
+      {label:"Boot space",value:"250–380 litres"},
+      {label:"Engine size",value:"1.0–1.6L"},
+      {label:"Fuel economy",value:"40–60 MPG"},
+      {label:"Road tax",value:"£0–£180/yr"},
+      {label:"Seats",value:"5"},
+      {label:"Ideal customer",value:"First buyers, commuters, retirees"}
     ],
-    cars: [
+    cars:[
+      "Ford Fiesta","Vauxhall Corsa","Volkswagen Polo","SEAT Ibiza","Skoda Fabia",
+      "Renault Clio","Peugeot 208","Toyota Yaris","Hyundai i20","Kia Rio",
+      "Mazda 2","Suzuki Swift","Honda Jazz","Nissan Micra","MINI Hatch",
+      "Audi A1","Citroen C3","Dacia Logan","Ford Puma (small crossover)","Vauxhall Mokka (entry)"
+    ]
+  },
+  {
+    id:"C", letter:"C", name:"Medium Cars", title:"Medium / Family Cars",
+    badge_bg:"#FDF0DC", badge_color:"#9A6010", pill_bg:"#F7DCAA", pill_color:"#7A4A08",
+    desc:"The family workhorse. Comfortably seats 5, proper boot, available as hatch, saloon or estate.",
+    why:`<strong>Segment C</strong> is the classic family car segment — also called the "Golf class" after the Volkswagen Golf that defined it. Cars here are typically 4.2–4.6m long, comfortably seat 5 adults, and come in hatchback, saloon, and estate body styles. Practicality meets everyday driving pleasure. Your customer has often had a smaller car before and is stepping up for space. Dual-income couples, young families, and experienced drivers dominate this segment.`,
+    facts:[
+      {label:"Typical length",value:"4.2m – 4.6m"},
+      {label:"Insurance group",value:"Group 10–28"},
+      {label:"Boot space",value:"380–480 litres"},
+      {label:"Engine size",value:"1.0–2.0L"},
+      {label:"Fuel economy",value:"35–55 MPG"},
+      {label:"Road tax",value:"£165–£265/yr"},
+      {label:"Seats",value:"5"},
+      {label:"Ideal customer",value:"Young families, couples, upgraders"}
+    ],
+    cars:[
+      "Volkswagen Golf","Ford Focus","Vauxhall Astra","SEAT Leon","Skoda Octavia",
+      "Renault Megane","Peugeot 308","Toyota Corolla","Hyundai i30","Kia Ceed",
+      "Mazda 3","Honda Civic","BMW 1 Series","Audi A3","Mercedes A-Class",
+      "Volkswagen ID.3","Cupra Born","Ford Focus Estate","Skoda Octavia Estate",
+      "SEAT Leon ST","Vauxhall Astra Estate","Peugeot 308 SW","Toyota Corolla Touring Sports"
+    ]
+  },
+  {
+    id:"D", letter:"D", name:"Large / Executive", title:"Large Size / Executive Cars",
+    badge_bg:"#FAEDE8", badge_color:"#B5401A", pill_bg:"#F5C9B8", pill_color:"#8C2E10",
+    desc:"Premium, spacious, refined. Motorway cars for professionals — saloon and estate dominant.",
+    why:`<strong>Segment D</strong> covers large family and executive cars — typically 4.6–4.9m long. These represent the premium end of mainstream motoring: quieter cabins, stronger engines, higher-quality interiors. The BMW 3 Series and Audi A4 define this space. Customers tend to be professionals using them as company cars, long-distance commuters, or buyers stepping up from a C-segment car wanting a quality leap. Saloon and estate are the dominant body styles.`,
+    facts:[
+      {label:"Typical length",value:"4.6m – 4.9m"},
+      {label:"Insurance group",value:"Group 20–40"},
+      {label:"Boot space",value:"400–550 litres"},
+      {label:"Engine size",value:"1.5–3.0L"},
+      {label:"Fuel economy",value:"30–55 MPG"},
+      {label:"Road tax",value:"£165–£580/yr"},
+      {label:"Seats",value:"5"},
+      {label:"Ideal customer",value:"Professionals, company car drivers"}
+    ],
+    cars:[
       "BMW 3 Series","BMW 5 Series","Audi A4","Audi A6","Mercedes C-Class","Mercedes E-Class",
-      "Volkswagen Passat","Vauxhall Insignia","Ford Mondeo","Toyota Avensis","Honda Accord",
-      "Skoda Octavia Saloon","Skoda Superb","SEAT Toledo","Mazda 6","Jaguar XE","Jaguar XF",
-      "Lexus IS","Lexus ES","Volvo S60","Volvo S90","Alfa Romeo Giulia","Peugeot 508",
-      "BMW 7 Series","Mercedes S-Class","Audi A8","Kia Stinger","Tesla Model 3"
+      "Volkswagen Passat","Vauxhall Insignia","Ford Mondeo","Skoda Superb","Mazda 6",
+      "Jaguar XE","Jaguar XF","Lexus IS","Lexus ES","Volvo S60","Volvo S90",
+      "Alfa Romeo Giulia","Peugeot 508","Tesla Model 3","Kia Stinger",
+      "BMW 3 Series Touring","Audi A4 Avant","Volkswagen Passat Estate",
+      "Mercedes C-Class Estate","Volvo V60","Skoda Superb Estate","BMW 5 Series Touring","Audi A6 Avant"
     ]
   },
   {
-    id: "estate",
-    label: "Estate",
-    icon: "🚐",
-    tagline: "Family practicality + serious boot space",
-    bg: "var(--estate-bg)",
-    accent: "var(--estate-accent)",
-    pill: "var(--estate-pill)",
-    why: "A saloon with an extended roofline and rear tailgate. Enormous boot space without the bulk of an SUV. Hugely practical for families, dog owners, tradespeople, or anyone who regularly carries large loads. Popular with drivers who want saloon refinement but need the space.",
-    facts: [
-      { label: "Typical use", value: "Family, load carrying, dogs" },
-      { label: "Boot space", value: "550–700+ litres" },
-      { label: "Ins. group range", value: "Group 15–40" },
-      { label: "Engine size", value: "1.5–3.0L typical" },
-      { label: "Fuel economy", value: "35–55 MPG" },
-      { label: "Ideal for", value: "Families, dog owners, tradespeople" }
+    id:"E", letter:"E", name:"SUV", title:"SUV / Crossover",
+    badge_bg:"#EEEDFB", badge_color:"#4A3DB5", pill_bg:"#CEC8F3", pill_color:"#372D8C",
+    desc:"The UK's fastest growing segment. Raised ride height, commanding view — from small crossovers to full-size 4x4s.",
+    why:`<strong>Segment E</strong> covers all SUVs and crossovers — from the small Nissan Juke to the full-size Range Rover. The raised ride height is the defining feature: easier to get in and out, better visibility, more presence on the road. Crossovers (like the Qashqai) are car-based and economy-focused. True SUVs (like the Defender) are more capable off-road. Now the UK's most popular segment overall. Watch insurance groups closely — a large premium SUV can hit group 35–45.`,
+    facts:[
+      {label:"Typical length",value:"4.0m – 5.0m+"},
+      {label:"Insurance group",value:"Group 10–45"},
+      {label:"Boot space",value:"400–600+ litres"},
+      {label:"Engine size",value:"1.0–3.0L+"},
+      {label:"Fuel economy",value:"25–50 MPG"},
+      {label:"Road tax",value:"£165–£580/yr"},
+      {label:"Seats",value:"5 (some 7-seat options)"},
+      {label:"Ideal customer",value:"Families, lifestyle buyers, school run"}
     ],
-    cars: [
-      "Volkswagen Passat Estate","Skoda Octavia Estate","Skoda Superb Estate",
-      "BMW 3 Series Touring","BMW 5 Series Touring","Audi A4 Avant","Audi A6 Avant",
-      "Mercedes C-Class Estate","Mercedes E-Class Estate","Volvo V60","Volvo V90",
-      "Ford Focus Estate","Ford Mondeo Estate","Vauxhall Astra Estate",
-      "Vauxhall Insignia Sports Tourer","Peugeot 308 SW","Renault Megane Estate",
-      "SEAT Leon ST","Jaguar XF Sportbrake","Subaru Outback","Toyota Avensis Tourer",
-      "Mazda 6 Tourer","Hyundai i30 Estate","Kia Ceed Sportswagon","Honda Accord Tourer"
-    ]
-  },
-  {
-    id: "suv",
-    label: "SUV / Crossover",
-    icon: "🛻",
-    tagline: "Lifestyle, family & higher driving position",
-    bg: "var(--suv-bg)",
-    accent: "var(--suv-accent)",
-    pill: "var(--suv-pill)",
-    why: "The fastest-growing segment in the UK. Raised ride height gives a commanding driving position and easier entry/exit. Crossovers are car-based (softer, better economy), full SUVs are more rugged. Loved by families, school-run parents, and lifestyle buyers. Wide range from compact (Juke) to full-size (Defender).",
-    facts: [
-      { label: "Typical use", value: "Family, school run, lifestyle" },
-      { label: "Boot space", value: "400–600+ litres" },
-      { label: "Ins. group range", value: "Group 10–45" },
-      { label: "Engine size", value: "1.0–3.0L+ typical" },
-      { label: "Fuel economy", value: "28–50 MPG" },
-      { label: "Ideal for", value: "Families, couples, adventurers" }
-    ],
-    cars: [
-      "Ford Puma","Ford Kuga","Ford Explorer","Vauxhall Mokka","Vauxhall Crossland","Vauxhall Grandland",
-      "Nissan Juke","Nissan Qashqai","Nissan X-Trail","Toyota RAV4","Toyota C-HR","Toyota Yaris Cross",
-      "Honda CR-V","Honda HR-V","Kia Sportage","Kia Sorento","Hyundai Tucson","Hyundai Santa Fe",
-      "Volkswagen T-Roc","Volkswagen Tiguan","Volkswagen Touareg","Skoda Kamiq","Skoda Karoq","Skoda Kodiaq",
-      "SEAT Arona","SEAT Ateca","SEAT Tarraco","Renault Captur","Renault Kadjar",
-      "Peugeot 2008","Peugeot 3008","Peugeot 5008","BMW X1","BMW X3","BMW X5","BMW X7",
-      "Audi Q3","Audi Q5","Audi Q7","Audi Q8","Mercedes GLA","Mercedes GLC","Mercedes GLE","Mercedes GLS",
+    cars:[
+      "Nissan Juke","Nissan Qashqai","Nissan X-Trail",
+      "Ford Puma","Ford Kuga","Ford Explorer",
+      "Vauxhall Mokka","Vauxhall Crossland","Vauxhall Grandland",
+      "Toyota C-HR","Toyota RAV4","Toyota Yaris Cross",
+      "Kia Sportage","Kia Sorento","Hyundai Tucson","Hyundai Santa Fe",
+      "Volkswagen T-Roc","Volkswagen Tiguan","Volkswagen Touareg",
+      "Skoda Kamiq","Skoda Karoq","Skoda Kodiaq",
+      "SEAT Arona","SEAT Ateca","SEAT Tarraco",
+      "Renault Captur","Renault Kadjar",
+      "Peugeot 2008","Peugeot 3008","Peugeot 5008",
+      "BMW X1","BMW X3","BMW X5","BMW X7",
+      "Audi Q3","Audi Q5","Audi Q7","Audi Q8",
+      "Mercedes GLA","Mercedes GLC","Mercedes GLE","Mercedes GLS",
       "Land Rover Defender","Land Rover Discovery","Land Rover Discovery Sport",
       "Range Rover","Range Rover Sport","Range Rover Evoque","Range Rover Velar",
+      "Volvo XC40","Volvo XC60","Volvo XC90",
+      "Mazda CX-3","Mazda CX-5","Mazda CX-60",
+      "Honda CR-V","Honda HR-V",
       "Jeep Renegade","Jeep Compass","Jeep Grand Cherokee","Jeep Avenger",
-      "Volvo XC40","Volvo XC60","Volvo XC90","Mazda CX-3","Mazda CX-5","Mazda CX-60",
-      "Subaru Forester","Mitsubishi Outlander","Mitsubishi Eclipse Cross",
-      "Tesla Model Y","Tesla Model X","Lexus NX","Lexus RX","Porsche Cayenne","Porsche Macan",
-      "Alfa Romeo Stelvio","Jaguar F-Pace","Jaguar E-Pace","Cupra Formentor","Cupra Ateca"
+      "Tesla Model Y","Tesla Model X",
+      "Lexus NX","Lexus RX","Porsche Macan","Porsche Cayenne",
+      "Jaguar E-Pace","Jaguar F-Pace","Alfa Romeo Stelvio",
+      "Cupra Formentor","Cupra Ateca","Mitsubishi Outlander","Subaru Forester"
     ]
   },
   {
-    id: "mpv",
-    label: "MPV",
-    icon: "🚌",
-    tagline: "Maximum passenger space for large families",
-    bg: "var(--mpv-bg)",
-    accent: "var(--mpv-accent)",
-    pill: "var(--mpv-pill)",
-    why: "Multi-Purpose Vehicle — designed to carry the most people possible. Tall, boxy shape to maximise interior height. Most have 5–7 seats with sliding rear doors for safe pavement loading. Less stylish than an SUV but far more practical for large families, childminders, or anyone who regularly carries 6–7 people.",
-    facts: [
-      { label: "Typical use", value: "Large family, 7 seats, school run" },
-      { label: "Boot space", value: "150–700 litres (flexible)" },
-      { label: "Ins. group range", value: "Group 10–30" },
-      { label: "Engine size", value: "1.2–2.0L typical" },
-      { label: "Fuel economy", value: "35–50 MPG" },
-      { label: "Ideal for", value: "Large families, childminders" }
+    id:"F", letter:"F", name:"MPV", title:"MPV — Multi-Purpose Vehicle",
+    badge_bg:"#FBEAF0", badge_color:"#A3284F", pill_bg:"#F2BECE", pill_color:"#7D1A3A",
+    desc:"Maximum passenger space. Sliding doors, 6–7 genuine seats — built for large families.",
+    why:`<strong>Segment F</strong> — MPVs — are all about interior volume. Tall, boxy shapes maximise headroom and seating capacity. Most true MPVs have sliding rear doors for safe pavement loading with children. They're not glamorous but unbeatable for large families or anyone who genuinely needs 6–7 seats. The segment has shrunk as buyers switched to large SUVs — but key point for customers: SUV third rows are often cramped. MPV third rows are proper, usable seats.`,
+    facts:[
+      {label:"Typical length",value:"4.4m – 5.0m"},
+      {label:"Insurance group",value:"Group 10–28"},
+      {label:"Boot space",value:"150–800 litres (flexible)"},
+      {label:"Engine size",value:"1.2–2.2L"},
+      {label:"Fuel economy",value:"30–50 MPG"},
+      {label:"Road tax",value:"£165–£265/yr"},
+      {label:"Seats",value:"5–7 (genuine 7-seat)"},
+      {label:"Ideal customer",value:"Large families, childminders"}
     ],
-    cars: [
-      "Ford S-Max","Ford Galaxy","Volkswagen Sharan","Volkswagen Touran","SEAT Alhambra",
-      "Renault Scenic","Renault Grand Scenic","Citroen C4 Picasso","Citroen Grand C4 Picasso",
-      "Vauxhall Zafira","Toyota Verso","Toyota Proace Verso","Kia Carens",
-      "Hyundai ix20","Mercedes V-Class","BMW 2 Series Active Tourer",
-      "BMW 2 Series Gran Tourer","Mazda 5","Fiat Ulysse","Peugeot 807"
-    ]
-  },
-  {
-    id: "coupe",
-    label: "Coupe / Convertible",
-    icon: "🏎️",
-    tagline: "Style, performance & weekend driving",
-    bg: "var(--coupe-bg)",
-    accent: "var(--coupe-accent)",
-    pill: "var(--coupe-pill)",
-    why: "Two-door (usually) body with a sloping roofline for a sporty look. Convertibles add a folding roof for open-air driving. Prioritises style and driving enjoyment over practicality. Boot space is often limited, rear seats cramped. Typically higher insurance groups. Suited to drivers who use the car for pleasure or as a second vehicle.",
-    facts: [
-      { label: "Typical use", value: "Weekend, leisure, second car" },
-      { label: "Boot space", value: "150–350 litres" },
-      { label: "Ins. group range", value: "Group 20–50" },
-      { label: "Engine size", value: "1.4–4.0L+ typical" },
-      { label: "Fuel economy", value: "20–45 MPG" },
-      { label: "Ideal for", value: "Enthusiasts, couples, second car" }
-    ],
-    cars: [
-      "BMW 4 Series Coupe","BMW 4 Series Convertible","BMW 2 Series Coupe","BMW Z4",
-      "Audi A5 Coupe","Audi A3 Cabriolet","Audi TT","Mercedes C-Class Coupe",
-      "Mercedes E-Class Coupe","Mercedes SLK","Mercedes SLC","Ford Mustang",
-      "Volkswagen Beetle Cabriolet","MINI Convertible","Mazda MX-5","Toyota GR86","Toyota Supra",
-      "Honda S2000","Jaguar F-Type","Porsche 911","Porsche Boxster","Porsche Cayman",
-      "Lotus Elise","Lotus Emira","Alpine A110","Renault Megane RS","Ford Focus ST",
-      "BMW M2","Audi RS3","Mercedes-AMG A45","Volkswagen Golf GTI","Volkswagen Golf R","SEAT Cupra"
+    cars:[
+      "Ford S-Max","Ford Galaxy",
+      "Volkswagen Sharan","Volkswagen Touran",
+      "SEAT Alhambra",
+      "Renault Scenic","Renault Grand Scenic",
+      "Citroen C4 Picasso","Citroen Grand C4 Picasso","Citroen Berlingo",
+      "Peugeot Rifter","Peugeot 807",
+      "Vauxhall Zafira","Vauxhall Combo Life",
+      "Toyota Verso","Toyota Proace Verso",
+      "Kia Carens","Kia Carnival",
+      "Hyundai ix20",
+      "Mercedes V-Class",
+      "BMW 2 Series Active Tourer","BMW 2 Series Gran Tourer",
+      "Mazda 5","Chrysler Grand Voyager","Fiat Ulysse"
     ]
   }
 ];
 
 let activeFilter = "all";
 let searchTerm = "";
-let openSections = new Set(TYPES.map(t => t.id));
+let openCards = new Set(SEGS.map(s=>s.id));
 
-function buildFilters() {
+function buildFilters(){
   const wrap = document.getElementById("filters");
   let html = `<button class="tf active" data-id="all">All</button>`;
-  TYPES.forEach(t => {
-    html += `<button class="tf" data-id="${t.id}">${t.icon} ${t.label}</button>`;
+  SEGS.forEach(s=>{
+    html += `<button class="tf" data-id="${s.id}">Segment ${s.letter}</button>`;
   });
   wrap.innerHTML = html;
-  wrap.querySelectorAll(".tf").forEach(btn => {
-    btn.addEventListener("click", () => {
+  wrap.querySelectorAll(".tf").forEach(btn=>{
+    btn.addEventListener("click",()=>{
       activeFilter = btn.dataset.id;
-      if (activeFilter !== "all") {
-        openSections = new Set([activeFilter]);
-      } else {
-        openSections = new Set(TYPES.map(t => t.id));
-      }
-      wrap.querySelectorAll(".tf").forEach(b => b.classList.remove("active"));
+      openCards = activeFilter==="all" ? new Set(SEGS.map(s=>s.id)) : new Set([activeFilter]);
+      wrap.querySelectorAll(".tf").forEach(b=>b.classList.remove("active"));
       btn.classList.add("active");
       render();
     });
   });
 }
 
-function render() {
+function render(){
   const content = document.getElementById("content");
   const countBar = document.getElementById("countBar");
   const q = searchTerm.toLowerCase();
-  const typesToShow = activeFilter === "all" ? TYPES : TYPES.filter(t => t.id === activeFilter);
-
+  const show = activeFilter==="all" ? SEGS : SEGS.filter(s=>s.id===activeFilter);
   let totalShown = 0;
   let html = "";
 
-  typesToShow.forEach(type => {
-    const filtered = type.cars.filter(c => !q || c.toLowerCase().includes(q));
-    if (q && filtered.length === 0) return;
+  show.forEach(seg=>{
+    const filtered = seg.cars.filter(c=>!q||c.toLowerCase().includes(q));
+    if(q && filtered.length===0) return;
     totalShown += filtered.length;
-    const isOpen = openSections.has(type.id);
+    const isOpen = openCards.has(seg.id);
 
-    html += `<div class="section${isOpen ? ' open' : ''}" data-id="${type.id}">
-      <div class="section-head" onclick="toggleSection('${type.id}')">
-        <div class="type-icon" style="background:${type.bg}">${type.icon}</div>
-        <div class="head-text">
+    html += `<div class="card${isOpen?' open':''}" data-id="${seg.id}">
+      <div class="card-head" onclick="toggleCard('${seg.id}')">
+        <div class="seg-badge" style="background:${seg.badge_bg}">
+          <div class="seg-letter" style="color:${seg.badge_color}">${seg.letter}</div>
+          <div class="seg-name" style="color:${seg.badge_color}">${seg.name}</div>
+        </div>
+        <div class="head-body">
           <div class="head-top">
-            <span class="type-name">${type.label}</span>
-            <span class="type-tagline">${type.tagline}</span>
-            <span class="type-count">${filtered.length} models</span>
+            <span class="seg-title">${seg.title}</span>
+            <span class="seg-count">${filtered.length} models</span>
           </div>
-          <div class="type-why">${type.why}</div>
+          <div class="seg-desc">${seg.desc}</div>
         </div>
-        <div class="chevron">⌄</div>
+        <div class="chevron">&#8964;</div>
       </div>
-      <div class="section-body">
-        <div class="key-facts">
-          ${type.facts.map(f => `
-            <div class="fact">
-              <div class="fact-label">${f.label}</div>
-              <div class="fact-value">${f.value}</div>
-            </div>
-          `).join("")}
+      <div class="card-body">
+        <div class="why-block">${seg.why}</div>
+        <div class="facts-grid">
+          ${seg.facts.map(f=>`<div class="fact"><div class="fact-label">${f.label}</div><div class="fact-value">${f.value}</div></div>`).join("")}
         </div>
-        <div class="cars-label">Popular models (${filtered.length})</div>
+        <div class="models-label">Models in this segment (${filtered.length})</div>
         <div class="pills">
-          ${filtered.map(c => {
-            const isMatch = q && c.toLowerCase().includes(q);
-            return `<span class="pill${isMatch ? ' match' : ''}" style="background:${isMatch ? type.accent : type.pill};color:${isMatch ? '#fff' : type.accent};">${c}</span>`;
+          ${filtered.map(c=>{
+            const match = q && c.toLowerCase().includes(q);
+            return `<span class="pill${match?' match':''}" style="background:${match?seg.badge_color:seg.pill_bg};color:${match?'#fff':seg.pill_color};">${c}</span>`;
           }).join("")}
         </div>
       </div>
     </div>`;
   });
 
-  if (!html) {
-    html = `<div class="empty">No results for "<strong>${searchTerm}</strong>" — try a different spelling.</div>`;
-  }
-
+  if(!html) html=`<div class="empty">No results for "<strong>${searchTerm}</strong>" &mdash; try a different spelling.</div>`;
   content.innerHTML = html;
 
-  const total = TYPES.reduce((a, t) => a + t.cars.length, 0);
-  countBar.textContent = (q || activeFilter !== "all")
+  const total = SEGS.reduce((a,s)=>a+s.cars.length,0);
+  countBar.textContent = (q||activeFilter!=="all")
     ? `Showing ${totalShown} models`
-    : `${total} models across 6 body types`;
+    : `${total} models across segments A to F`;
 }
 
-function toggleSection(id) {
-  if (openSections.has(id)) {
-    openSections.delete(id);
-  } else {
-    openSections.add(id);
-  }
+function toggleCard(id){
+  openCards.has(id) ? openCards.delete(id) : openCards.add(id);
   render();
 }
 
-document.getElementById("searchInput").addEventListener("input", e => {
+document.getElementById("searchInput").addEventListener("input",e=>{
   searchTerm = e.target.value;
-  if (searchTerm) openSections = new Set(TYPES.map(t => t.id));
+  if(searchTerm) openCards = new Set(SEGS.map(s=>s.id));
   render();
 });
 
